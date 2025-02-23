@@ -23,8 +23,16 @@
 		"eslint-config-prettier": "^10.0.1",
 		"eslint-plugin-svelte": "^2.46.1",
 		"globals": "^15.14.0",
+		"lefthook": "^1.10.10",
+		"postcss-html": "^1.8.0",
 		"prettier": "^3.4.2",
 		"prettier-plugin-svelte": "^3.3.3",
+		"stylelint": "^16.14.1",
+		"stylelint-config-html": "^1.1.0",
+		"stylelint-config-recess-order": "^6.0.0",
+		"stylelint-config-recommended-scss": "^14.1.0",
+		"stylelint-config-standard-scss": "^14.0.0",
+		"stylelint-scss": "^6.11.1",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
 		"typescript": "^5.0.0",
@@ -33,7 +41,8 @@
 	},
 	"pnpm": {
 		"onlyBuiltDependencies": [
-			"esbuild"
+			"esbuild",
+			"lefthook"
 		]
 	},
 	"packageManager": "pnpm@10.4.1+sha512.c753b6c3ad7afa13af388fa6d808035a008e30ea9993f58c6663e2bc5ff21679aa834db094987129aa4d488b86df57f7b634981b2f827cdcacc698cc0cfb88af"
