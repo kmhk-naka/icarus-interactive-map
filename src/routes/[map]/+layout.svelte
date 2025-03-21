@@ -7,7 +7,7 @@
 		<ul class="navigation-list">
 			<a class="navigation-item home" href="/">Home</a>
 			{#each data.maps as map}
-				<li class="navigation-item" data-selected={data.map.path === map.path}>
+				<li class="navigation-item" data-selected={data.map === map.path}>
 					<a href={`/${map.path}`}>{map.name}</a>
 				</li>
 			{/each}
