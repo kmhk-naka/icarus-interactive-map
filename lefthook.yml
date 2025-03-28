@@ -2,14 +2,14 @@ pre-commit:
   parallel: false
   commands:
     prettier:
-      glob: "*.{js,ts,svelte,css,scss,json,md}"
+      glob: '*.{js,ts,svelte,css,scss,json,md}'
       run: pnpm exec prettier {staged_files} --write
       stage_fixed: true
     eslint:
-      glob: "*.{js,ts,svelte}"
+      glob: '*.{js,ts,svelte}'
       run: pnpm exec eslint {staged_files} --fix
       stage_fixed: true
     stylelint:
-      glob: "*.{svelte,css,scss}"
+      glob: '*.{svelte,css,scss}'
       run: pnpm exec stylelint {staged_files} --fix
       stage_fixed: true
