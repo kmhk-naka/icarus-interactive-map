@@ -4,30 +4,28 @@
 
   const { data } = $props();
 
-  let bounds = L.latLngBounds(L.latLng(0, 256), L.latLng(-256, 0));
-  let maxBounds = bounds.pad(0.1);
+  const bounds = L.latLngBounds(L.latLng(0, 256), L.latLng(-256, 0));
+  const maxBounds = bounds.pad(0.1);
 
   let map: L.Map | undefined = $state();
+
+  const mapOptions = {
+    crs: L.CRS.Simple,
+    zoom: 1,
+    center: L.latLng(128, 128),
+    maxBounds: maxBounds
+  };
+
+  const tileLayerOptions = {
+    minZoom: 1,
+    maxZoom: 4,
+    bounds
+  };
 </script>
 
 <div style="width: 100%; height: 100%;">
-  <Map
-    options={{
-      crs: L.CRS.Simple,
-      zoom: 1,
-      center: [128, 128],
-      maxBounds: maxBounds
-    }}
-    bind:instance={map}
-  >
-    <TileLayer
-      url={`/map/${data.map.name}/{z}/{x}/{y}.jpg`}
-      options={{
-        minZoom: 1,
-        maxZoom: 4,
-        bounds,
-      }}
-    />
+  <Map options={mapOptions} bind:instance={map}>
+    <TileLayer url={`/map/${data.map.name}/{z}/{x}/{y}.jpg`} options={tileLayerOptions} />
   </Map>
 </div>
 
