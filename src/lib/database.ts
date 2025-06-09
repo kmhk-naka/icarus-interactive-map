@@ -13,7 +13,7 @@ const colors = [
   'orange',
   'red',
   'pink',
-  'purple'
+  'purple',
 ];
 
 type IconColor = (typeof colors)[number];
@@ -35,7 +35,7 @@ const db = new Dexie('IcarusPoiDatabase') as Dexie & {
 };
 
 db.version(1).stores({
-  locations: '++id, map'
+  locations: '++id, map',
 });
 
 async function addLocation(lat: number, lng: number, map: MapType) {
@@ -45,7 +45,7 @@ async function addLocation(lat: number, lng: number, map: MapType) {
       lat,
       lng,
       type: 'pickaxe',
-      color: 'white'
+      color: 'white',
     });
   } catch (error) {
     console.error('Error adding location:', error);

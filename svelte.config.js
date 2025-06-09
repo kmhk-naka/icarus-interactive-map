@@ -14,9 +14,9 @@ const config = {
     adapter: adapter(),
     alias: {
       '~styles': '/styles',
-      '~styles/*': '/styles/*'
-    }
-  }
+      '~styles/*': '/styles/*',
+    },
+  },
 };
 
 export default config;

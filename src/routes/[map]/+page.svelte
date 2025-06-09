@@ -21,13 +21,13 @@
     crs: L.CRS.Simple,
     zoom: 1,
     center: L.latLng(128, 128),
-    maxBounds: maxBounds
+    maxBounds: maxBounds,
   };
 
   const tileLayerOptions = {
     minZoom: 1,
     maxZoom: 4,
-    bounds
+    bounds,
   };
 
   let locations = $derived.by(() => {
@@ -61,7 +61,7 @@
               className: `poi-icon-${location.color}`,
               iconSize: [36, 36],
               iconAnchor: [18, 18],
-              popupAnchor: [0, -18]
+              popupAnchor: [0, -18],
             }}
           />
         {/key}

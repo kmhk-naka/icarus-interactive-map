@@ -8,6 +8,6 @@ export function load({ params }) {
 
   return {
     map,
-    maps
+    maps,
   };
 }
