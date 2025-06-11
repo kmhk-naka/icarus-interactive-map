@@ -22,23 +22,23 @@
 <style lang="scss">
   #app {
     position: fixed;
-    left: 0;
     top: 0;
+    left: 0;
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100%;
     min-width: 600px;
+    height: 100%;
   }
 
   .header-navigation {
     position: relative;
+    z-index: 10;
     flex: 0 0 auto;
     width: 100%;
     height: 64px;
-    background: #333;
     color: white;
-    z-index: 10;
+    background: #333;
 
     a {
       color: white;
@@ -48,15 +48,15 @@
     .navigation-list {
       display: flex;
       justify-content: center;
-      list-style-type: none;
       padding: 0;
+      list-style-type: none;
     }
 
     .navigation-item {
       width: 104px;
-      text-align: center;
-      margin: 0 8px;
       padding: 0 8px;
+      margin: 0 8px;
+      text-align: center;
 
       &.home {
         position: absolute;

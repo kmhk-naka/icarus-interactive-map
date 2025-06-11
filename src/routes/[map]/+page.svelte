@@ -172,26 +172,26 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: 300px;
-    height: calc(100% - 24px);
-    background: #222;
-    color: #fff;
     z-index: 1000;
-    box-shadow: -2px 0 8px rgb(0 0 0 / 0.2);
-    padding: 1rem;
-    overflow: hidden auto;
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 300px;
+    height: calc(100% - 24px);
+    padding: 1rem;
+    overflow: hidden auto;
+    color: #fff;
+    background: #222;
+    box-shadow: -2px 0 8px rgb(0 0 0 / 0.2);
   }
 
   .close-btn {
     align-self: flex-end;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    color: #fff;
+    cursor: pointer;
     background: none;
     border: none;
-    color: #fff;
-    font-size: 2rem;
-    cursor: pointer;
-    margin-bottom: 1rem;
   }
 </style>

@@ -63,8 +63,8 @@
 
   .title {
     width: 100%;
-    margin: 8px 0;
     padding: 2px 4px;
+    margin: 8px 0;
     background-color: $color-light-green;
 
     &:not(:first-of-type) {
@@ -76,19 +76,19 @@
   .color-picker {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
-    width: 100%;
     gap: 8px;
+    width: 100%;
     padding: 16px 8px;
 
     > button {
       width: 50px;
       height: 50px;
       padding: 4px;
-      border: none;
-      border-radius: 12px;
+      cursor: pointer;
       background: transparent;
       background-color: $color-dark-green;
-      cursor: pointer;
+      border: none;
+      border-radius: 12px;
 
       &[aria-current='true'] {
         border: solid 2px $color-light-green;
@@ -116,16 +116,16 @@
     padding: 8px;
 
     input {
+      box-sizing: border-box;
       width: 100%;
       padding: 8px 12px;
-      border: 1px solid $color-light-green;
-      border-radius: 4px;
       font-size: 1em;
-      background: #f8faef;
       color: #222;
       outline: none;
+      background: #f8faef;
+      border: 1px solid $color-light-green;
+      border-radius: 4px;
       transition: border 0.2s;
-      box-sizing: border-box;
 
       &:focus {
         border-color: #8fae5d;

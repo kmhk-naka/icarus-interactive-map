@@ -47,11 +47,11 @@
     .card {
       display: flex;
       flex-direction: column;
+      padding: 4px 4px 0;
+      color: white;
       text-align: center;
       text-decoration: none;
-      color: white;
       background-color: #333;
-      padding: 4px 4px 0;
 
       .thumbnail {
         width: 256px;
@@ -60,18 +60,18 @@
 
       .name {
         display: flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
         height: 32px;
-        background-color: #333;
         color: white;
+        background-color: #333;
       }
 
       &:hover {
-        transform: translateY(-2px);
         box-shadow:
           0 10px 15px -3px rgb(0 0 0 / 0.1),
           0 4px 6px -2px rgb(0 0 0 / 0.05);
+        transform: translateY(-2px);
 
         .name {
           color: #e0bf26;
