@@ -23,6 +23,7 @@ interface PoiLocation {
   lng: number;
   type: PoiType;
   color: IconColor;
+  label: string;
 }
 
 interface LocationEntity extends PoiLocation {
@@ -44,6 +45,7 @@ async function addLocation(lat: number, lng: number, map: MapType) {
       map,
       lat,
       lng,
+      label: 'Location',
       type: 'pickaxe',
       color: 'white',
     });
@@ -56,18 +58,23 @@ function getLocations(map: MapType) {
   return Dexie.liveQuery(() => db.locations.where('map').equals(map).toArray());
 }
 
-function onTypeChange(type: PoiType, id: LocationEntity['id']) {
+function updateType(type: PoiType, id: LocationEntity['id']) {
   db.locations.update(id, { type }).catch((error) => {
     console.error('Error updating location type:', error);
   });
 }
 
-function onColorChange(color: IconColor, id: LocationEntity['id']) {
+function updateColor(color: IconColor, id: LocationEntity['id']) {
   db.locations.update(id, { color }).catch((error) => {
     console.error('Error updating location color:', error);
+  });
+}
+function updateLabel(label: string, id: LocationEntity['id']) {
+  db.locations.update(id, { label }).catch((error) => {
+    console.error('Error updating location label:', error);
   });
 }
 
 export type { PoiLocation, LocationEntity, IconColor };
 export { db, colors };
-export { addLocation, getLocations, onTypeChange, onColorChange };
+export { addLocation, getLocations, updateType, updateColor, updateLabel };

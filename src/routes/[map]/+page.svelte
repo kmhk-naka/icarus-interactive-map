@@ -1,21 +1,31 @@
 <script lang="ts">
-  import { Map, TileLayer, Marker, Popup, DivIcon } from 'sveaflet';
+  import { Map, TileLayer, Marker, DivIcon } from 'sveaflet';
   import * as L from 'leaflet';
+  import { fly } from 'svelte/transition';
 
   import { poiTypeToSvg } from '$lib/icon';
 
-  import { addLocation, getLocations, onTypeChange, onColorChange } from '$lib/database.js';
+  import {
+    addLocation,
+    getLocations,
+    updateType,
+    updateColor,
+    updateLabel,
+  } from '$lib/database.js';
 
   import PoiEditor from './PoiEditor.svelte';
+
+  import type { LocationEntity } from '$lib/database.js';
 
   const { data } = $props();
 
   const bounds = L.latLngBounds(L.latLng(0, 256), L.latLng(-256, 0));
-  const maxBounds = bounds.pad(0.1);
+  const maxBounds = bounds.pad(0.12);
 
   let map: L.Map | undefined = $state();
 
   let mapType = $derived(data.map.name);
+  let currentMapType = data.map.name;
 
   const mapOptions = {
     crs: L.CRS.Simple,
@@ -35,6 +45,9 @@
     return getLocations(mapType);
   });
 
+  let selectedLocation = $state<LocationEntity | null>(null);
+  let popup = $state<L.Popup | null>(null);
+
   const onClickMap = (e: L.LeafletMouseEvent) => {
     const latlng = e.latlng;
     if (!bounds.contains(latlng)) {
@@ -44,8 +57,65 @@
     addLocation(latlng.lat, latlng.lng, mapType);
   };
 
+  const onTypeChange = (type: LocationEntity['type']) => {
+    if (selectedLocation) {
+      updateType(type, selectedLocation.id);
+
+      selectedLocation = { ...selectedLocation, type };
+    }
+  };
+
+  const onColorChange = (color: LocationEntity['color']) => {
+    if (selectedLocation) {
+      updateColor(color, selectedLocation.id);
+
+      selectedLocation = { ...selectedLocation, color };
+    }
+  };
+
+  const onChangeLabel = (label: string) => {
+    if (selectedLocation) {
+      updateLabel(label, selectedLocation.id);
+
+      selectedLocation.label = label;
+
+      if (popup) {
+        popup.setContent(`<h3>${label}</h3>`);
+      }
+    }
+  };
+
+  const onMarkerClick = (location: LocationEntity) => {
+    selectedLocation = location;
+
+    // @ts-expect-error This constructor is correct but @types/leaflet is missing it
+    popup = L.popup(L.latLng(location.lat, location.lng), {
+      content: `<h3>${location.label}</h3>`,
+      offset: L.point(0, -10),
+    }).openOn(map!);
+  };
+
+  const closeEditor = () => {
+    selectedLocation = null;
+    popup?.remove();
+  };
+
   $effect(() => {
     map?.on('click', onClickMap);
+  });
+
+  $effect(() => {
+    popup?.on('remove', () => {
+      selectedLocation = null;
+    });
+  });
+
+  $effect(() => {
+    if (mapType !== currentMapType) {
+      selectedLocation = null;
+      popup?.remove();
+      currentMapType = mapType;
+    }
   });
 </script>
 
@@ -53,7 +123,7 @@
   <Map options={mapOptions} bind:instance={map}>
     <TileLayer url={`/map/${data.map.name}/{z}/{x}/{y}.jpg`} options={tileLayerOptions} />
     {#each $locations as location}
-      <Marker latLng={L.latLng(location.lat, location.lng)}>
+      <Marker latLng={L.latLng(location.lat, location.lng)} onclick={() => onMarkerClick(location)}>
         {#key `${location.type}:${location.color}`}
           <DivIcon
             options={{
@@ -61,22 +131,26 @@
               className: `poi-icon-${location.color}`,
               iconSize: [36, 36],
               iconAnchor: [18, 18],
-              popupAnchor: [0, -18],
             }}
           />
         {/key}
-
-        <Popup>
-          <PoiEditor
-            type={location.type}
-            color={location.color}
-            onTypeChange={(t) => onTypeChange(t, location.id)}
-            onColorChange={(c) => onColorChange(c, location.id)}
-          />
-        </Popup>
       </Marker>
     {/each}
   </Map>
+
+  {#if selectedLocation}
+    <div class="editor-sidebar" transition:fly={{ x: 300 }}>
+      <button class="close-btn" onclick={closeEditor}>×</button>
+      <PoiEditor
+        type={selectedLocation.type}
+        color={selectedLocation.color}
+        label={selectedLocation.label}
+        onTypeChange={(t) => onTypeChange(t)}
+        onColorChange={(c) => onColorChange(c)}
+        onChangeLabel={(label) => onChangeLabel(label)}
+      />
+    </div>
+  {/if}
 </div>
 
 <style lang="scss">
@@ -92,5 +166,32 @@
         fill: $value;
       }
     }
+  }
+
+  .editor-sidebar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: calc(100% - 24px);
+    background: #222;
+    color: #fff;
+    z-index: 1000;
+    box-shadow: -2px 0 8px rgb(0 0 0 / 0.2);
+    padding: 1rem;
+    overflow: hidden auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .close-btn {
+    align-self: flex-end;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    margin-bottom: 1rem;
   }
 </style>
