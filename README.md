@@ -1,20 +1,18 @@
-# sv
+# Icarus Interactive Map
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+[Icarus](https://surviveicarus.com) is a session-based PvE survival game for up to eight co-op players or solo.
 
-## Creating a project
+For this game, there is a very good third-party interactive map web application called [Icarus Intel](https://icarusintel.com). However, instead of being very informative, this application loses the opportunity for a discovery experience by myself. In addition, the in-game features do not allow you to keep track on the map without using certain items.
 
-If you're seeing this, you've probably already done this step. Congrats!
+Therefore, I created an interactive map where you can add your own records from zero.
 
-```bash
-# create a new project in the current directory
-npx sv create
+## How to use and customize
 
-# create a new project in my-app
-npx sv create my-app
-```
+Feel free to clone or customize this project.
 
-## Developing
+If you want to add another map, provide map assets in `static/map/XXX` and add map data to `src/lib/data.ts`.
+
+### Developing
 
 Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
@@ -25,7 +23,7 @@ npm run dev
 npm run dev -- --open
 ```
 
-## Building
+### Building
 
 To create a production version of your app:
 
@@ -36,3 +34,7 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+
+## License
+
+This project is open source and available under the MIT License. See the [LICENSE](LICENSE) file for details.
