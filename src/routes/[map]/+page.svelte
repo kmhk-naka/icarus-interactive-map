@@ -88,7 +88,6 @@
   const onMarkerClick = (location: LocationEntity) => {
     selectedLocation = location;
 
-    // @ts-expect-error This constructor is correct but @types/leaflet is missing it
     popup = L.popup(L.latLng(location.lat, location.lng), {
       content: `<h3>${location.label}</h3>`,
       offset: L.point(0, -10),
