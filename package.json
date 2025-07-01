@@ -11,7 +11,9 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "format": "eslint --fix . && stylelint --fix . && prettier --write .",
-    "lint": "prettier --check . && eslint . && stylelint ."
+    "lint": "prettier --check . && eslint . && stylelint .",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "devDependencies": {
     "@eslint/compat": "^1.3.1",
@@ -19,12 +21,15 @@
     "@sveltejs/adapter-auto": "^4.0.0",
     "@sveltejs/kit": "^2.22.2",
     "@sveltejs/vite-plugin-svelte": "^5.1.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/svelte": "^5.2.8",
     "@types/leaflet": "^1.9.19",
     "@types/node": "^22.15.34",
     "eslint": "^9.30.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-svelte": "^2.46.1",
     "globals": "^15.15.0",
+    "jsdom": "^26.1.0",
     "lefthook": "^1.11.14",
     "postcss-html": "^1.8.0",
     "prettier": "^3.6.2",
@@ -40,7 +45,8 @@
     "svelte-check": "^4.2.2",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.35.0",
-    "vite": "^6.3.5"
+    "vite": "^6.3.5",
+    "vitest": "^3.2.4"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
