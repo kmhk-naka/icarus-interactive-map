@@ -13,3 +13,9 @@ pre-commit:
       glob: '*.{svelte,css,scss}'
       run: pnpm exec stylelint {staged_files} --fix
       stage_fixed: true
+pre-push:
+  parallel: true
+  commands:
+    vitest:
+      glob: "*.{spec,test}.{js,ts}"
+      run: pnpm exec vitest run {push_files}
